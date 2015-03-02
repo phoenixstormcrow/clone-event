@@ -1,0 +1,37 @@
+{
+  "name": "clone-event",
+  "version": "0.0.1",
+  "description": "Clone DOM Events.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "jshint index.js",
+    "test": "opener test/index.html",
+    "browserify-test": "browserify test/index.js -o test/bundle.js",
+    "watch-test": "watchify test/index.js -o test/bundle.js -v -d",
+    "browserify": "browserify index.js -o clone-event.bundle.js",
+    "build": "npm run browserify",
+    "pretest": "npm run lint && npm run browserify-test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:phoenixstormcrow/clone-event.git"
+  },
+  "keywords": [
+    "dom",
+    "event",
+    "forward"
+  ],
+  "author": "K. P. MacGregor <phoenixstormcrow@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/phoenixstormcrow/clone-event/issues"
+  },
+  "homepage": "https://github.com/phoenixstormcrow/clone-event",
+  "devDependencies": {
+    "browserify": "^9.0.3",
+    "jshint": "^2.6.3",
+    "opener": "^1.4.0",
+    "tape": "^3.5.0",
+    "watchify": "^2.4.0"
+  }
+}
