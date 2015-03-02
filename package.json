@@ -19,7 +19,7 @@
   "keywords": [
     "dom",
     "event",
-    "forward"
+    "clone"
   ],
   "author": "K. P. MacGregor <phoenixstormcrow@gmail.com>",
   "license": "MIT",
