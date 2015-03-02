@@ -1,6 +1,6 @@
 {
   "name": "clone-event",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Clone DOM Events.",
   "main": "index.js",
   "scripts": {
