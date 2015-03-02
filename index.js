@@ -40,7 +40,11 @@ function clone(e, overrides) {
 
   for (var prop in e) {
     if (e.hasOwnProperty(prop)) {
-      initDict[prop] = over[prop] || e[prop];
+      if (over.hasOwnProperty[prop]) {
+        initDict[prop] = over[prop];
+      } else {
+        initDict[prop] = e[prop];
+      }
     }
   }
 
