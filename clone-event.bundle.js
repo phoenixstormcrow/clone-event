@@ -4,6 +4,10 @@
    clone a DOM event
 */
 
+var whitelist = require('./whitelist');
+
+console.log(whitelist);
+
 function clone(e, overrides) {
   'use strict';
   /* clone an event by copying its properties
@@ -19,7 +23,18 @@ function clone(e, overrides) {
      For example, e = new Event('foo', {'lengthComputable': true})
      does not cause an error, and e.lengthComputable
      will be undefined after the constructor returns.
+
+     Not all events can be constructed,
+     and not every device defines every event interface.
+     therefore, we whitelist the supported events.
   */
+
+  if (whitelist.find(function (el) {
+        return (el === e.constructor.name);
+      }) === undefined) {
+        throw new TypeError("Unsupported event constructor: " +
+          e.constructor.name);
+  }
   var over = overrides || {},
       Constructor = e.constructor,
       initDict = {};
@@ -34,5 +49,74 @@ function clone(e, overrides) {
 }
 
 module.exports = clone;
+
+},{"./whitelist":2}],2:[function(require,module,exports){
+/* whitelist.js
+
+   exports a list of event constructors which
+   are supported by clone-event.
+*/
+
+var events = [
+  'Event',
+  'AnimationEvent',
+  'AudioProcessingEvent',
+  'BeforeInputEvent',
+  'BeforeUnloadEvent',
+  'BlobEvent',
+  'ClipboardEvent',
+  'CloseEvent',
+  'CompositionEvent',
+  'CSSFontFaceLoadEvent',
+  'CustomEvent',
+  'DeviceLightEvent',
+  'DeviceMotionEvent',
+  'DeviceOrientationEvent',
+  'DeviceProximityEvent',
+  'DOMTransactionEvent',
+  'DragEvent',
+  'EditingBeforeInputEvent',
+  'ErrorEvent',
+  'FocusEvent',
+  'GamepadEvent',
+  'HashChangeEvent',
+  'IDBVersionChangeEvent',
+  'InputEvent',
+  'KeyboardEvent',
+  'MediaStreamEvent',
+  'MessageEvent',
+  'MouseEvent',
+  'MutationEvent',
+  'OfflineAudioCompletionEvent',
+  'PageTransitionEvent',
+  'PointerEvent',
+  'PopStateEvent',
+  'ProgressEvent',
+  'RelatedEvent',
+  'RTCDataChannelEvent',
+  'RTCIdentityErrorEvent',
+  'RTCIdentityEvent',
+  'RTCPeerConnectionIceEvent',
+  'SensorEvent',
+  'StorageEvent',
+  'SVGEvent',
+  'SVGZoomEvent',
+  'TimeEvent',
+  'TouchEvent',
+  'TrackEvent',
+  'TransitionEvent',
+  'UIEvent',
+  'UserProximityEvent',
+  'WheelEvent'
+];
+
+module.exports = events.filter(function (evt) {
+  try {
+    eval("new " + evt +"('foo')");
+  } catch (e) {
+    return false;
+  }
+  return true;
+});
 
 },{}]},{},[1]);
