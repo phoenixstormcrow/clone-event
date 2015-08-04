@@ -6,9 +6,9 @@
   "scripts": {
     "lint": "jshint index.js",
     "test": "opener test/index.html",
-    "browserify-test": "browserify test/index.js -o test/bundle.js",
+    "browserify-test": "browserify -d -t babelify test/index.js -o test/bundle.js",
     "watch-test": "watchify test/index.js -o test/bundle.js -v -d",
-    "browserify": "browserify index.js -o clone-event.bundle.js",
+    "browserify": "browserify -d -t babelify index.js -o clone-event.bundle.js",
     "build": "npm run browserify",
     "pretest": "npm run lint && npm run browserify-test"
   },
@@ -28,7 +28,9 @@
   },
   "homepage": "https://github.com/phoenixstormcrow/clone-event",
   "devDependencies": {
+    "babelify": "^6.1.3",
     "browserify": "^9.0.3",
+    "core-js": "^1.0.1",
     "jshint": "^2.6.3",
     "opener": "^1.4.0",
     "tape": "^3.5.0",

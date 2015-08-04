@@ -5,7 +5,7 @@ var clone = require('../index'),
 tape('test cloning', function (t) {
 //  t.plan(2);
   var e = new Event('foo'),
-      e2 = clone(e);
+      e2 = clone(e),
       e3 = clone(e, {'bubbles': true});
   t.ok(e.type, 'foo');
 /* deepEqual(e, e2) will sometimes pass and
@@ -17,7 +17,7 @@ tape('test cloning', function (t) {
   t.equal(e.bubbles, e2.bubbles);
   t.equal(e.cancelable, e2.cancelable);
 
-  t.notDeepEqual(e, e3);
+  t.notEqual(e.bubbles, e3.bubbles);
   t.equal(e3.bubbles, true);
 
   var pe = new ProgressEvent('bar'),

@@ -3,12 +3,24 @@
    clone a DOM event
 */
 
+'use strict';
+
+/* polyfill for Array.prototype.find and Object.assign */
+
+if (!Array.prototype.find) {
+  require('core-js/fn/array/find');
+}
+
+if (!Object.assign) {
+  require('core-js/fn/object/assign');
+}
+
+//require('babel/polyfill');
+
 var whitelist = require('./whitelist');
 
-console.log(whitelist);
+function clone(e, overrides = {}) {
 
-function clone(e, overrides) {
-  'use strict';
   /* clone an event by copying its properties
      and calling its constructor. The
      overrides parameter allows the caller
@@ -34,19 +46,9 @@ function clone(e, overrides) {
         throw new TypeError("Unsupported event constructor: " +
           e.constructor.name);
   }
-  var over = overrides || {},
-      Constructor = e.constructor,
-      initDict = {};
 
-  for (var prop in e) {
-    if (e.hasOwnProperty(prop)) {
-      if (over.hasOwnProperty[prop]) {
-        initDict[prop] = over[prop];
-      } else {
-        initDict[prop] = e[prop];
-      }
-    }
-  }
+  var Constructor = e.constructor,
+      initDict = Object.assign({}, e, overrides);
 
   return new Constructor(e.type, initDict);
 }
